@@ -60,7 +60,7 @@ public class Dice : MonoBehaviour
         // before final side appears. 20 itterations here.
         for (int i = 0; i <= 20; i++)
         {
-            // Pick up random value from 0 to 5 (All inclusive)
+            // Pick up random value from 0 to 4 (All inclusive)
             randomDiceSide = Random.Range(0, 4);
 
             // Set sprite to upper face of dice from array according to random value

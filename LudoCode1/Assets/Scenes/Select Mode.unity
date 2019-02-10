@@ -695,8 +695,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000010876, y: -0.0018397}
-  m_SizeDelta: {x: 800, y: 450.39}
+  m_AnchoredPosition: {x: 0.000010876, y: 1.7266}
+  m_SizeDelta: {x: 800, y: 453.85}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &801089312
 MonoBehaviour:
@@ -1237,6 +1237,16 @@ MonoBehaviour:
   PlayerName: {fileID: 2078011875}
   PlayerScore: {fileID: 1270997234}
   PlayerRerolls: {fileID: 461437337}
+  myPlayer:
+    Id: 0
+    Name: 
+    Email: 
+    Country: 
+    ExperiencePoints: 0
+    TotalWonMatch: 0
+    TotalPlayedMatch: 0
+    AvailableRerolls: 0
+    CurrentStage: 0
 --- !u!1 &1657306308
 GameObject:
   m_ObjectHideFlags: 0
