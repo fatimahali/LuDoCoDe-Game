@@ -7,21 +7,27 @@ using System;
 
 public class DisplayPlayer : MonoBehaviour
 {
-    
-    public static string server = "http://ludo-code.com";
-    public static string path = "/";
 
-
+    public GameObject NextStage;
     public GameObject PlayerName;
     public GameObject PlayerScore;
     public GameObject PlayerRerolls;
-
+    public GameObject PlayerProfille;
+    public GameObject Options;
     Text Name;
     Text Score;
     Text Rerolls;
 
-    public PlayerClass myPlayer = Database.players.GetPlayer(1);
-    PlayerClass UpdateRerolls; 
+     PlayerClass myPlayer = Database.players.GetPlayer(2);
+    PlayerClass UpdateRerolls;
+
+    // player Profelle 
+    public Text playerNum;
+    public Text CurrentStage;
+    public Text ExperiencePoints;
+    public Text TotalWonMatch;
+    public Text TotalPlayedMatch;
+    public Text AvailableReRolls;
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +36,7 @@ public class DisplayPlayer : MonoBehaviour
          
         if (myPlayer!= null)
         {
-            PlayerName = GameObject.Find("Name");
+           PlayerName = GameObject.Find("Name");
             PlayerScore = GameObject.Find("Score");
             PlayerRerolls = GameObject.Find("ReRolls");
 
@@ -50,7 +56,21 @@ public class DisplayPlayer : MonoBehaviour
     }
     public void SelectStag (string stage)
     {
-        SceneManager.LoadScene("match" + stage);//match 1
+        //Select stage to access Prompt the player to select stage
+   //   if( stage ==  )
+            StartCoroutine(Database.Instance.GetExercises(isSuccessful =>
+            {
+              //  StartMatch(stage, myPlayer);
+                SceneManager.LoadScene("match" + stage);//match 1
+            }));
+
+        //else
+        //    print("To access this stage you must complete the previous stage");
+    
+
+         
+
+       
     }
     public void AvailableRerolls(string stage)
     {
@@ -75,17 +95,39 @@ public class DisplayPlayer : MonoBehaviour
 
         
     }
-    public void StartMatch(StageClass selectedStage, PlayerClass currentPlayer)
+    public void StartMatch(string selectedStage, PlayerClass currentPlayer)
     {
-       //  MatchClass  currentMatchClass =;
-
-
+        MatchClass currentMatchClass = new MatchClass();
+        currentMatchClass.currentStage = selectedStage;
+        currentMatchClass.availableHints = 5;
+        currentMatchClass.playerTokenPosition = 0 ;
+        currentMatchClass.ComputerTokenPosition = 0 ;
+        // ShowMatchBoard(currentMatchClass);
     }
 
+    public void PlayerProfilleMethod()
+    {
+       PlayerProfille.SetActive(true);
+        playerNum.text = myPlayer.Name;
+        CurrentStage.text = myPlayer.CurrentStage.ToString();
+        ExperiencePoints.text = myPlayer.ExperiencePoints.ToString();
+        TotalWonMatch.text = myPlayer.TotalWonMatch.ToString();
+        TotalPlayedMatch.text = myPlayer.TotalPlayedMatch.ToString();
+        AvailableReRolls.text = myPlayer.AvailableRerolls.ToString();
+    }
+    public void ExitMethodPlayerProfills()
+    {
+        PlayerProfille.SetActive(false);
+    }
 
-
-
-
+    public void OptionsMethod()
+    {
+        Options.SetActive(true);
+    }
+    public void ExitOptionsMethod()
+    {
+        Options.SetActive(false);
+    }
 
     // Update is called once per frame
     void Update()

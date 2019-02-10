@@ -33,7 +33,7 @@ public class Database : MonoBehaviour
     public static Players players = new Players();
     public static Records records = new Records();
     public static Hints hints = new Hints();
-    public static Exercises exercise = new Exercises();
+    public static Exercises exercises = new Exercises();
     public static Stages stages = new Stages();
 
 
@@ -69,16 +69,18 @@ public class Database : MonoBehaviour
         Debug.LogError(www.text.Trim());
 
 
-        if (string.IsNullOrEmpty(www.error))
+        if (www.error == null)
         {
             isSuccessful = true;
-            exercise = exercise.DeserializeObject(www.text.Trim());
+            exercises = exercises.DeserializeObject(www.text.Trim());
         }
         else
             Debug.LogError(www.error);
 
         callback(isSuccessful);
     }
+
+
     public IEnumerator UpdatePlayer(PlayerClass player, System.Action<bool> callback)
     {
         bool isSuccessful = false;
@@ -150,7 +152,7 @@ public class Database : MonoBehaviour
     {
         bool isSuccessful = false;
         WWWForm wwwForm = new WWWForm();
-        wwwForm.AddField("id", 0);
+        wwwForm.AddField("Id", 0);
         WWW www = new WWW(server + path + "get_records.php", wwwForm);
 
         yield return www;
@@ -227,12 +229,7 @@ public class Database : MonoBehaviour
         //callback(isSuccessful);
 
 
-    
-
-    public class MatchClass
-    {
-    }
-   
+  
 
     /*
     public IEnumerator AddPlayer(PlayerClass player, System.Action<bool> callback)
@@ -261,31 +258,7 @@ public class Database : MonoBehaviour
         callback(isSuccessful);
     }
     */
-  /*  public IEnumerator ShowExercise(ExerciseClass Exercise, System.Action<bool> callback)
-    {
-        bool isSuccessful = false;
-
-        WWWForm wwwForm = new WWWForm();
-        wwwForm.AddField("Difficulty", Exercise.Difficulty);
-        wwwForm.AddField("CurrentStage", Exercise.CurrentStage);
-
-        WWW www = new WWW(server + path + "EX.php", wwwForm);
-        yield return www;
-
-
-        if (www.error == null)
-        {
-            exercise.ShowExercises(Exercise);
-            if (!www.text.Contains("false"))
-            {
-                isSuccessful = true;
-            }
-        }
-        else
-            Debug.LogError(www.error);
-
-        callback(isSuccessful);
-    }*/
+  
 }
 
 [System.Serializable]
@@ -483,6 +456,7 @@ public class RecordClass
 }
 
 
+
 [System.Serializable]
 public class Exercises
 {
@@ -493,47 +467,24 @@ public class Exercises
     {
         exercises = new List<ExerciseClass>();
     }
-    public void Addexercises(ExerciseClass Exercise)
+
+    public void AddRecord(ExerciseClass exercise)
     {
-        exercises.Add(Exercise);
+        exercises.Add(exercise);
     }
-    public ExerciseClass GetExersice(MatchClass currentMatch, int tokenPosition)
-    {
-        // Set ExerciseClass currentExercise =  random exercise depending on the current token position and currentMatch . currentStage
-        string difficulty = "";
-        if (tokenPosition < 8)
-        {
-            difficulty = "Easy";
-        }
-        else if (tokenPosition < 16) {
-            difficulty = "Medium";
-        }
-        else difficulty = "Hard";
-
-
-       /* foreach (ExerciseClass exercise in currentMatch.currentStage.exercises )
-        {
-            if(exercise.Difficulty == difficulty)
-            {
-                exercises.Add(exercise);
-            } return exercise;
-} */
-        return null;
-       } 
-
-    public ExerciseClass GetExercise(int CurrentStage)
+    public ExerciseClass GetEexrcise(int id)
     {
         foreach (ExerciseClass p in exercises)
         {
-            if (p.ExerciseId == CurrentStage)
+            if (p.ExerciseId == id)
                 return p;
         }
 
         return null;
     }
 
-    
-    #region Remote Save \ Load
+
+    #region Remote Save \ Load   
     public string SerializeObject()
     {
         string XmlizedString = null;
@@ -546,9 +497,9 @@ public class Exercises
 
         memoryStream = (MemoryStream)xmlTextWriter.BaseStream;
         XmlizedString = UTF8ByteArrayToString(memoryStream.ToArray());
-
         return XmlizedString;
     }
+
     public Exercises DeserializeObject(string pXmlizedString)
     {
         XmlSerializer xs = new XmlSerializer(typeof(Exercises));
@@ -556,7 +507,6 @@ public class Exercises
         XmlTextWriter xmlTextWriter = new XmlTextWriter(memoryStream, Encoding.UTF8);
         return xs.Deserialize(memoryStream) as Exercises;
     }
-
     string UTF8ByteArrayToString(byte[] characters)
     {
         UTF8Encoding encoding = new UTF8Encoding();
@@ -569,12 +519,48 @@ public class Exercises
         byte[] byteArray = encoding.GetBytes(pXmlString);
         return byteArray;
     }
-      #endregion
+    #endregion 
 }
+
+[System.Serializable]
+public class ExerciseClass
+{
+    public int ExerciseId;
+    public string Question;
+    public string Solution;
+    public string ExerciseType;
+    public string Difficulty;
+    public int CurrentStage; //StageId
+
+    public ExerciseClass()
+    {
+        //ExerciseId = ;
+        Question = "";
+        Solution = "";
+        ExerciseType = "";
+        Difficulty = "";
+        CurrentStage = 0;
+    }
+
+
+
+    public ExerciseClass(int ExerciseId, string Question, string Solution, string ExerciseType, string Difficulty, int CurrentStage)
+    {
+        this.ExerciseId = ExerciseId;
+        this.Question = Question;
+        this.Solution = Solution;
+        this.ExerciseType = ExerciseType;
+        this.Difficulty = Difficulty;
+        this.CurrentStage = CurrentStage;
+    }
+
+}
+
+
 
 public class MatchClass
 {
-    public int currentStage;
+    public string currentStage;
     public int availableHints;
     public int playerTokenPosition;
     public int ComputerTokenPosition;
@@ -583,11 +569,19 @@ public class MatchClass
 
    public MatchClass()
     {
+        currentStage = "";
         availableHints = 0;
+        currentTurn = "";
+        playerTokenPosition = 0 ;
+        ComputerTokenPosition = 0 ;
+
     }
-    public MatchClass(int availableHints)
+    public MatchClass(string currentStage, int availableHints,int playerTokenPosition, int ComputerTokenPosition)
     {
+        this.currentStage = currentStage;
         this.availableHints = availableHints;
+        this.ComputerTokenPosition = ComputerTokenPosition ;
+        this.playerTokenPosition = playerTokenPosition ;
     }
 
 }
@@ -630,41 +624,6 @@ public class PlayerClass
         this.AvailableRerolls = AvailableRerolls;
         this.CurrentStage = CurrentStage;
     }
-}
-[System.Serializable]
-public class ExerciseClass
-{
-
-    public int ExerciseId;
-    public string Question;
-    public string Solution;
-    public string ExerciseType;
-    public string Difficulty;
-    public int CurrentStage; //StageId
-
-    public ExerciseClass()
-    {
-        //ExerciseId = ;
-        Question = "";
-        Solution = "";
-        ExerciseType = "";
-        Difficulty = "";
-        CurrentStage = 0;
-    }
-
-
-
-    public ExerciseClass(int ExerciseId, string Question, string Solution, string ExerciseType, string Difficulty, int CurrentStage)
-    {
-        this.ExerciseId = ExerciseId;
-        this.Question = Question;
-        this.Solution = Solution;
-        this.ExerciseType = ExerciseType;
-        this.Difficulty = Difficulty;
-        this.CurrentStage = CurrentStage;
-    }
-
-
 }
 
 [System.Serializable]
@@ -761,7 +720,7 @@ public class Stages
 
     public Stages()
     {
-        stages = new List<PlayerClass>();
+        stages = new List<PlayerClass>();  // Stagesclass
     }
 
 
@@ -822,3 +781,4 @@ public class StageClass : MonoBehaviour
         this.StageTitle = StageTitle;
     }
 }
+

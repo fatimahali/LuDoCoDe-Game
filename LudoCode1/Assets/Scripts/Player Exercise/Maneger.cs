@@ -11,7 +11,7 @@ public class Maneger : MonoBehaviour
 
     public void goToScene(string sceneName)
     {       
-        SceneManager.LoadScene(sceneName);
+        SceneManager.LoadScene(3);
 
     }
 }

@@ -85,17 +85,18 @@ public class Dice : MonoBehaviour
 
         // Assigning final side so you can use this value later in your game
         // for player movement for example
-        //finalSide = randomDiceSide + 1;
+        finalSide = randomDiceSide + 1;
+   
 
-        // yield return new WaitForSeconds(0.06f);
+         yield return new WaitForSeconds(0.06f);
 
 
-      //  UI.text = finalSide.ToString();
-      //  Script.move = finalSide.ToString();
-       StartCoroutine(Database.Instance.GetExercises(isSuccessful =>
-        {
-            SceneManager.LoadScene(3);
-       }));
+       // UI.text = finalSide.ToString();
+        Script.move = finalSide.ToString();
+   
+        
+            SceneManager.LoadScene(4);
+     
 
         //   }));
 

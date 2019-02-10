@@ -7,12 +7,13 @@ using Random = System.Random;
 
 public class ShowExercice : MonoBehaviour
 {
+
     List<string> HintsExercice = Database.hints.GetHints(1);// currentExercise
-
+    ExerciseClass Exer = Database.exercises.GetEexrcise(1);
     Random rnd = new Random();
-    public int hint;
+   public int hint;
     public int numofhints = 5;
-
+    public Text Exercise;
     public GameObject Displayhint;
     Text cuhint;
     public Button[] hints;
@@ -21,13 +22,18 @@ public class ShowExercice : MonoBehaviour
 
     void Start()
     {
-        ExerciseClass Exer = Database.exercise.GetExercise(2);
+        //PlayerClass myPlayer = Database.players.GetPlayer(1);
+
         if (Exer != null)
         {
-            Debug.Log(Exer.Question);
+            
+            Debug.Log(Exer.ExerciseId + " : " + Exer.Question);
+
+        
         }
         else
             Debug.Log("Error");
+
     }
     // Update is called once per frame
     void Update()
@@ -75,7 +81,7 @@ public class ShowExercice : MonoBehaviour
                          displayText.text += EXE.Question + "\n";
                      }
                  }*/
-
+/*
 
     void ShowPlayerExercise(PlayerClass currentPlayer, MatchClass currentMatch, ExerciseClass currentExercise)
     {
@@ -109,7 +115,10 @@ public class ShowExercice : MonoBehaviour
          // Call MoveToken(TokenType = player, steps)
 
         }else
-        {    //	Call ShowMatchBoard(currentMatchClass) 
+        { 
+            //	Call ShowMatchBoard(currentMatchClass) 
+
+
         }
     }
 
@@ -129,20 +138,20 @@ public class ShowExercice : MonoBehaviour
             if (currentMatch.availableHints <= 0)
             {
                   return null;// exit this function
-        }
+            }
             else
             {
-                currentMatch.availableHints--;//  decrease CurrentMatchClass.availableHints  by one
+            currentMatch.availableHints--;//  decrease CurrentMatchClass.availableHints  by one
             int hintIndix =  rnd.Next(HintsExercice.Count);// currentExercise.hints[Random from 0 to max hints count]
             Displayhint = GameObject.Find("Hint");
-                cuhint = Displayhint.GetComponent<Text>();
-                cuhint.text = (string)HintsExercice[hintIndix];// Display the hint
+            cuhint = Displayhint.GetComponent<Text>();
+            cuhint.text = (string)HintsExercice[hintIndix];// Display the hint
             }
         return null;
         
     }
     
-
+    */
     
 
 } 

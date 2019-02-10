@@ -12,7 +12,7 @@ public class StageSelectScript : MonoBehaviour
     private int StageIndex;
     public static int Stages = 6;
     public GameObject NextStage;
-    public GameObject PlayerName;
+    //public GameObject PlayerName;
 
     public Text Name;
 
@@ -30,6 +30,7 @@ public class StageSelectScript : MonoBehaviour
     //stage to load on button click. Will be used for Level button click event
     public void SelectStage(string stage)
     {
+
         SceneManager.LoadScene("Stage" + stage);
     }
 
@@ -46,7 +47,9 @@ public class StageSelectScript : MonoBehaviour
 
                 NextStage = GameObject.Find("LockedStage" + (StageIndex));
                 NextStage.gameObject.SetActive(false);
+
                 Debug.Log("Unlocked stage " + StageIndex);
+
             }
             else
             {
@@ -57,10 +60,7 @@ public class StageSelectScript : MonoBehaviour
 
     }
 
-    public void StartMatch(StageClass selectedStage, PlayerClass currentPlayer)
-    {
-
-    }
+  
 }
 
 

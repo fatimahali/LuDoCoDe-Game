@@ -146,8 +146,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.021105265, y: 0.029000001}
   m_AnchorMax: {x: 0.98, y: 0.9684157}
-  m_AnchoredPosition: {x: -197, y: 107.41}
-  m_SizeDelta: {x: -547.6, y: -328.3}
+  m_AnchoredPosition: {x: -251.64, y: 102.42}
+  m_SizeDelta: {x: -714.22, y: -345.36}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &54036376
 MonoBehaviour:
@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9811321, g: 0.9487362, b: 0.9487362, a: 1}
+  m_Color: {r: 0.7924528, g: 0.33268064, b: 0.33268064, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -171,18 +171,18 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 33
+    m_FontSize: 45
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
-    m_MaxSize: 40
-    m_Alignment: 0
+    m_MaxSize: 100
+    m_Alignment: 1
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: 8
 --- !u!222 &54036377
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -227,8 +227,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.021105265, y: 0}
   m_AnchorMax: {x: 1, y: 0.9684157}
-  m_AnchoredPosition: {x: 109.6, y: -129.2}
-  m_SizeDelta: {x: -503, y: -405.6}
+  m_AnchoredPosition: {x: 126.42, y: -120.3}
+  m_SizeDelta: {x: -469.35, y: -423.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &115057399
 MonoBehaviour:
@@ -676,7 +676,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -6.600006, y: -17.399994}
+  m_AnchoredPosition: {x: -6.6000366, y: -17.399994}
   m_SizeDelta: {x: -285.6, y: -304.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &707096355
@@ -1048,7 +1048,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2335c195da09f774a89d1a02110d2d78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numSteps: {fileID: 0}
+  numSteps: {fileID: 54036376}
 --- !u!4 &823798621
 Transform:
   m_ObjectHideFlags: 0
@@ -1077,6 +1077,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hint: 0
   numofhints: 5
+  Exercise: {fileID: 0}
   Displayhint: {fileID: 0}
   hints: []
   fullhint: {fileID: 0}
@@ -1720,7 +1721,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1859773703}
+      - m_Target: {fileID: 0}
         m_MethodName: AvailableRerolls
         m_Mode: 5
         m_Arguments:
@@ -2022,8 +2023,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 56, y: -0.8}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 127, y: 0}
+  m_SizeDelta: {x: 319.1, y: 27.04}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1428610510
 MonoBehaviour:
@@ -2382,7 +2383,7 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -2540,7 +2541,6 @@ GameObject:
   - component: {fileID: 1859773698}
   - component: {fileID: 1859773701}
   - component: {fileID: 1859773702}
-  - component: {fileID: 1859773703}
   - component: {fileID: 1859773704}
   m_Layer: 0
   m_Name: Main Camera
@@ -2637,32 +2637,18 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1859773697}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d3eb633020854554092a7fdce858953f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hint: 0
   numofhints: 5
+  Exercise: {fileID: 1857919080}
   Displayhint: {fileID: 0}
   hints: []
   fullhint: {fileID: 0}
   emptyhint: {fileID: 0}
---- !u!114 &1859773703
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1859773697}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ef39406bc346514caaeeb5836410bfe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlayerName: {fileID: 0}
-  PlayerScore: {fileID: 0}
-  PlayerRerolls: {fileID: 0}
 --- !u!114 &1859773704
 MonoBehaviour:
   m_ObjectHideFlags: 0

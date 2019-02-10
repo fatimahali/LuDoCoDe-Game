@@ -10,24 +10,24 @@ public class Loude : MonoBehaviour
 
     public GameObject GameObject;
     public PassNumSteps Script;
-    void Start()
+  /*  void Start()
     {
         StartCoroutine(StartCountdown());
 
 
-    }
+    }*/
     private void Awake()
     { 
         // find Game object with Tage  returns single Game objcte with char the tag 
         // find Game objects with tag return  an array of such Game object 
-        //GameObject = GameObject.FindGameObjectsWithTag("GameObject")[0] as GameObject;
+        GameObject = GameObject.FindGameObjectsWithTag("GameObject")[0] as GameObject;
 
         // GetComponent loads the PassNumSteps
-      //  Script = GameObject.GetComponent<PassNumSteps>();
+        Script = GameObject.GetComponent<PassNumSteps>();
 
-      //  txtBox.text =""+ Script.move;
+        txtBox.text =""+ Script.move;
     }
-    float currCountdownValue;
+/*    float currCountdownValue;
     public IEnumerator StartCountdown(float countdownValue = 10)
     {
         currCountdownValue = countdownValue;
@@ -37,7 +37,7 @@ public class Loude : MonoBehaviour
             yield return new WaitForSeconds(1.0f);
             currCountdownValue--;
         }
-    }
+    }*/
 
 
 
