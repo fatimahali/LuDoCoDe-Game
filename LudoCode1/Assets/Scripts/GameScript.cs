@@ -7,8 +7,8 @@ using UnityEngine.SceneManagement;
 public class GameScript : MonoBehaviour
 {
     public PassNumSteps Script;
-    public Exercises exercises; 
-
+    public Exercises exercises;
+    public GameObject GameObject;
 
     private int  totalRedInHouse, totalGreenInHouse;
 
@@ -64,9 +64,27 @@ public class GameScript : MonoBehaviour
     public GameObject confirmScreen;
     public GameObject gameCompletedScreen;
 
+
+    //to lude the currentMatchClass
+    private void Awake()
+    {
+        // find Game object with Tage  returns single Game objcte with char the tag 
+        // find Game objects with tag return  an array of such Game object 
+        GameObject = GameObject.FindGameObjectsWithTag("GameObject")[0] as GameObject;
+        MatchClass matchClass = Script.matchClass;
+        // GetComponent loads the PassNumSteps
+        Script = GameObject.GetComponent<PassNumSteps>();
+        Debug.Log(matchClass.availableHints);
+        //greenPlayerI_Steps = matchClass.playerTokenPosition;
+        //greenPlayerII_Steps = matchClass.playerTokenPosition;
+        //redPlayerI_Steps = matchClass.ComputerTokenPosition;
+        // redPlayerII_Steps = matchClass.ComputerTokenPosition;
+        //int vaerble = matchClass.availableHints;
+        //string  stage = matchClass.currentStage;
+        //playerTurn = matchClass.currentTurn;
+
+    }
     //===== UI Button ===================
-
-
     public void quit()
     {
         SoundManagerScript.buttonAudioSource.Play();
@@ -1045,27 +1063,7 @@ public class GameScript : MonoBehaviour
               
                 break;
 
-            case 3:
-                playerTurn = "YELLOW";
-
-                frameRed.SetActive(false);
-                frameGreen.SetActive(false);
-              
-                greenPlayerI.SetActive(false);
-                greenPlayerII.SetActive(false);
-                
-
-                break;
-
-            case 4:
-                playerTurn = "RED";
-
-                frameRed.SetActive(true);
-                frameGreen.SetActive(false);
-               
-                diceRoll.position = redDiceRollPos.position;
-                // keep all players active
-                break;
+          
         }
     }
 

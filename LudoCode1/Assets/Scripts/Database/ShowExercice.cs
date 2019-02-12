@@ -19,22 +19,18 @@ public class ShowExercice : MonoBehaviour
     public Button[] hints;
     public Sprite fullhint;
     public Sprite emptyhint;
-
-    void Start()
+     void Start()
     {
-        //PlayerClass myPlayer = Database.players.GetPlayer(1);
 
         if (Exer != null)
         {
-            
+            Exercise.text = Exer.Question;
             Debug.Log(Exer.ExerciseId + " : " + Exer.Question);
-
-        
         }
         else
             Debug.Log("Error");
-
     }
+
     // Update is called once per frame
     void Update()
     {
@@ -42,7 +38,7 @@ public class ShowExercice : MonoBehaviour
     }
 
 
-    /*
+  /*  
         public Exercises EXE;
         public Text displayText;
 
@@ -81,7 +77,7 @@ public class ShowExercice : MonoBehaviour
                          displayText.text += EXE.Question + "\n";
                      }
                  }*/
-/*
+
 
     void ShowPlayerExercise(PlayerClass currentPlayer, MatchClass currentMatch, ExerciseClass currentExercise)
     {
@@ -151,7 +147,6 @@ public class ShowExercice : MonoBehaviour
         
     }
     
-    */
     
 
 } 

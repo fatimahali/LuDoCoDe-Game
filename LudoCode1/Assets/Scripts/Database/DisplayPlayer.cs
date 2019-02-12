@@ -7,7 +7,7 @@ using System;
 
 public class DisplayPlayer : MonoBehaviour
 {
-
+    public PassNumSteps Script;// to pass the object 
     public GameObject NextStage;
     public GameObject PlayerName;
     public GameObject PlayerScore;
@@ -60,7 +60,7 @@ public class DisplayPlayer : MonoBehaviour
    //   if( stage ==  )
             StartCoroutine(Database.Instance.GetExercises(isSuccessful =>
             {
-              //  StartMatch(stage, myPlayer);
+                // StartMatch(stage, myPlayer);
                 SceneManager.LoadScene("match" + stage);//match 1
             }));
 
@@ -97,12 +97,11 @@ public class DisplayPlayer : MonoBehaviour
     }
     public void StartMatch(string selectedStage, PlayerClass currentPlayer)
     {
-        MatchClass currentMatchClass = new MatchClass();
-        currentMatchClass.currentStage = selectedStage;
-        currentMatchClass.availableHints = 5;
-        currentMatchClass.playerTokenPosition = 0 ;
-        currentMatchClass.ComputerTokenPosition = 0 ;
-        // ShowMatchBoard(currentMatchClass);
+        int availableHints =5 ;
+        int playerTokenPosition=0 ;
+        int ComputerTokenPosition =0;
+        Script.matchClass = new  MatchClass(selectedStage, availableHints, playerTokenPosition,  ComputerTokenPosition);
+
     }
 
     public void PlayerProfilleMethod()

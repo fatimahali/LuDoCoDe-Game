@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class PassNumSteps : MonoBehaviour
 {
-    public string move;
+    private static int availableHints;
+    private static string currentStage;
+    private static int playerTokenPosition;
+    private static int ComputerTokenPosition;
+    public string move; 
+    public MatchClass matchClass =new MatchClass(currentStage, availableHints, playerTokenPosition, ComputerTokenPosition);
 
+   
 
     private void Awake()
     {
-        // 
-        DontDestroyOnLoad(this);
+       DontDestroyOnLoad(this);
     }
 }
