@@ -188,48 +188,48 @@ public class Database : MonoBehaviour
 
         callback(isSuccessful);
     }
-   
+
     //public IEnumerator get_exercises(MatchClass currentMatch, int tokenPosition) // change 
     //{
-        // Set ExerciseClass currentExercise =  random exercise depending on the current token
-        //position and currentMatch . currentStage
-      //  bool isSuccessful = false;
-     //   WWWForm wwwForm = new WWWForm();
-       // wwwForm.AddField("id", 0);
-       // WWW www = new WWW(server + path + "get_exercises.php", wwwForm);
+    // Set ExerciseClass currentExercise =  random exercise depending on the current token
+    //position and currentMatch . currentStage
+    //  bool isSuccessful = false;
+    //   WWWForm wwwForm = new WWWForm();
+    // wwwForm.AddField("id", 0);
+    // WWW www = new WWW(server + path + "get_exercises.php", wwwForm);
 
-       // yield return www;
-        //Debug.LogError(www.text.Trim());
-       // string difficulty = "";
-      //  if (www.error == null)
-       // {
-         //   isSuccessful = true;
-           // exercise = exercise.DeserializeObject(www.text.Trim());
+    // yield return www;
+    //Debug.LogError(www.text.Trim());
+    // string difficulty = "";
+    //  if (www.error == null)
+    // {
+    //   isSuccessful = true;
+    // exercise = exercise.DeserializeObject(www.text.Trim());
 
-            //if (tokenPosition < 8)
-            //{ difficulty = "Easy"; }
-            //else if (tokenPosition < 16) { difficulty = "Medium"; }
-            //else difficulty = "Hard";
+    //if (tokenPosition < 8)
+    //{ difficulty = "Easy"; }
+    //else if (tokenPosition < 16) { difficulty = "Medium"; }
+    //else difficulty = "Hard";
 
-            // List<ExerciseClass> matchedExercise;
-          //  foreach(ExerciseClass exercise in currentMatch)
-          //  {
-            //    if (exercise.Difficulty == "Hard")
-              //      matchedExercise.Add(exercise);
+    // List<ExerciseClass> matchedExercise;
+    //  foreach(ExerciseClass exercise in currentMatch)
+    //  {
+    //    if (exercise.Difficulty == "Hard")
+    //      matchedExercise.Add(exercise);
 
-            //}
-
-             
-
-       // }
-        //else
-          //  Debug.LogError(www.error);
-
-        //return matchedExercise[0bo];
-        //callback(isSuccessful);
+    //}
 
 
-  
+
+    // }
+    //else
+    //  Debug.LogError(www.error);
+
+    //return matchedExercise[0bo];
+    //callback(isSuccessful);
+
+
+
 
     /*
     public IEnumerator AddPlayer(PlayerClass player, System.Action<bool> callback)
@@ -258,7 +258,29 @@ public class Database : MonoBehaviour
         callback(isSuccessful);
     }
     */
-  
+
+    public IEnumerator Compile(string code, System.Action<bool> callback)
+    {
+        bool isSuccessful = false;
+
+        WWWForm wwwForm = new WWWForm();
+        wwwForm.AddField("cppcode", code); 
+
+        WWW www = new WWW(server + path + "cmd.php", wwwForm);
+        yield return www;
+
+
+        if (www.error == null)
+        {
+                Debug.LogError(www.text);
+            Debug.Log("compiler");
+                isSuccessful = true; 
+        }
+        else
+            Debug.LogError(www.error);
+
+        callback(isSuccessful);
+    }
 }
 
 [System.Serializable]

@@ -13,8 +13,8 @@ public class DataLoader : MonoBehaviour
         
         StartCoroutine(Database.Instance.GetPlayers(isSuccessful =>
         {
-            //RetrieveAllStages();
-            SceneManager.LoadScene(1);
+            RetrieveAllStages();
+          //  SceneManager.LoadScene(1);
     }));
            
             

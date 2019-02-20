@@ -19,16 +19,42 @@ public class ShowExercice : MonoBehaviour
     public Button[] hints;
     public Sprite fullhint;
     public Sprite emptyhint;
+    
+     public InputField code; // for the compiler 
+   // public Text displayText; 
      void Start()
     {
 
         if (Exer != null)
         {
             Exercise.text = Exer.Question;
+            AddPlayer();
             Debug.Log(Exer.ExerciseId + " : " + Exer.Question);
         }
         else
             Debug.Log("Error");
+    }
+
+    public void AddPlayer()
+    {
+        
+        StartCoroutine(Database.Instance.Compile(code.text, isSuccessful =>
+    {
+         Debug.Log("aaa");
+        //ps = Database.players;
+    })); 
+     }
+
+     void ShowAnsser()
+    {
+        
+        
+//
+//     foreach(PlayerClass pc in Database.players.players)
+//   {
+//     displayText.text += pc.username + "\n";
+//  }
+// 
     }
 
     // Update is called once per frame

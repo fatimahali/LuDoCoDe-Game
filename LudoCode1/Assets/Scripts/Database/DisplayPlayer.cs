@@ -17,10 +17,10 @@ public class DisplayPlayer : MonoBehaviour
     Text Name;
     Text Score;
     Text Rerolls;
-
-     PlayerClass myPlayer = Database.players.GetPlayer(2);
+   
+    PlayerClass myPlayer = Database.players.GetPlayer(2);
     PlayerClass UpdateRerolls;
-
+   
     // player Profelle 
     public Text playerNum;
     public Text CurrentStage;
@@ -29,6 +29,12 @@ public class DisplayPlayer : MonoBehaviour
     public Text TotalPlayedMatch;
     public Text AvailableReRolls;
 
+
+
+    int availableHints = 5;
+    int playerTokenPosition = 0;
+    int ComputerTokenPosition = 0;
+    protected  static MatchClass CurrentMatchClass = new MatchClass("4", 5, 0, 0);
     // Start is called before the first frame update
     void Start()
     {
@@ -60,8 +66,11 @@ public class DisplayPlayer : MonoBehaviour
    //   if( stage ==  )
             StartCoroutine(Database.Instance.GetExercises(isSuccessful =>
             {
-                // StartMatch(stage, myPlayer);
+                 StartMatch(stage, myPlayer);
+
+               
                 SceneManager.LoadScene("match" + stage);//match 1
+
             }));
 
         //else
@@ -97,11 +106,16 @@ public class DisplayPlayer : MonoBehaviour
     }
     public void StartMatch(string selectedStage, PlayerClass currentPlayer)
     {
-        int availableHints =5 ;
-        int playerTokenPosition=0 ;
-        int ComputerTokenPosition =0;
-        Script.matchClass = new  MatchClass(selectedStage, availableHints, playerTokenPosition,  ComputerTokenPosition);
+       
+        CurrentMatchClass.availableHints = 5;
+        CurrentMatchClass.currentStage = "5";
+        CurrentMatchClass.playerTokenPosition = 0;
+        CurrentMatchClass.ComputerTokenPosition = 0;
 
+        Debug.Log("Available Rerolls" + myPlayer.AvailableRerolls + ":" + CurrentMatchClass.availableHints);
+      //  Script.matchClass = CurrentMatchClass;
+        CurrentMatchClass = new MatchClass(selectedStage, availableHints, playerTokenPosition, ComputerTokenPosition);
+       
     }
 
     public void PlayerProfilleMethod()
@@ -126,6 +140,10 @@ public class DisplayPlayer : MonoBehaviour
     public void ExitOptionsMethod()
     {
         Options.SetActive(false);
+    }
+    public void HomeMethod()
+    {
+        SceneManager.LoadScene(1);
     }
 
     // Update is called once per frame

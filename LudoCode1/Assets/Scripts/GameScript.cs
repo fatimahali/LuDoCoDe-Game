@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class GameScript : MonoBehaviour
+public class GameScript : DisplayPlayer
 {
     public PassNumSteps Script;
     public Exercises exercises;
@@ -64,18 +64,20 @@ public class GameScript : MonoBehaviour
     public GameObject confirmScreen;
     public GameObject gameCompletedScreen;
 
-
+   
     //to lude the currentMatchClass
     private void Awake()
     {
         // find Game object with Tage  returns single Game objcte with char the tag 
         // find Game objects with tag return  an array of such Game object 
-        GameObject = GameObject.FindGameObjectsWithTag("GameObject")[0] as GameObject;
-        MatchClass matchClass = Script.matchClass;
+      //  GameObject = GameObject.FindGameObjectsWithTag("GameObject")[0] as GameObject;
+        // MatchClass matchClass = Script.matchClass;
         // GetComponent loads the PassNumSteps
-        Script = GameObject.GetComponent<PassNumSteps>();
-        Debug.Log(matchClass.availableHints);
-        //greenPlayerI_Steps = matchClass.playerTokenPosition;
+        //Script = GameObject.GetComponent<PassNumSteps>();
+     //   Debug.Log("availableHints" + matchClass.availableHints);
+        // Debug.Log(matchClass.playerTokenPosition);
+
+        // greenPlayerI_Steps = matchClass.playerTokenPosition;
         //greenPlayerII_Steps = matchClass.playerTokenPosition;
         //redPlayerI_Steps = matchClass.ComputerTokenPosition;
         // redPlayerII_Steps = matchClass.ComputerTokenPosition;
@@ -84,11 +86,63 @@ public class GameScript : MonoBehaviour
         //playerTurn = matchClass.currentTurn;
 
     }
+
+  public void  ShowMatchBoard(MatchClass CurrentMatchClass)
+    {
+        float timer = 0.0f;
+        while (!quit())
+        {
+            while (playerTurn =="GREEN" && currentPlayerName.Contains("GREEN PLAYER"))
+            {
+                InitializeDice(CurrentMatchClass);
+
+            }
+            while (playerTurn == "RED" && currentPlayerName.Contains("RED PLAYER"))
+            {
+                selectDiceNumAnimation= randomNo.Next(1,3);//Set steps = Pick Random integer from 1 – 4
+                                                           //10 seconds prompt the player to accept the bonus exercise 
+                if (confirmScreen.active==true)
+                {
+                    yield return new WaitForSeconds(10);
+                    if (BonusExercise())
+                    {
+                        SceneManager.LoadScene("match1");
+                    }else
+                    {
+                        if (currentPlayer == GreenPlayerI_Script.greenPlayerI_ColName && (currentPlayer != "Star" && GreenPlayerI_Script.greenPlayerI_ColName != "Star"))
+                        {
+                            SoundManagerScript.dismissalAudioSource.Play();
+                            greenPlayerI.transform.position = greenPlayerI_Pos;
+                            GreenPlayerI_Script.greenPlayerI_ColName = "none";
+                            greenPlayerI_Steps = 0;
+                            playerTurn = "RED";
+
+
+                        }
+                        if (currentPlayer == GreenPlayerII_Script.greenPlayerII_ColName && (currentPlayer != "Star" && GreenPlayerII_Script.greenPlayerII_ColName != "Star"))
+                        {
+                            SoundManagerScript.dismissalAudioSource.Play();
+                            greenPlayerII.transform.position = greenPlayerII_Pos;
+                            GreenPlayerII_Script.greenPlayerII_ColName = "none";
+                            greenPlayerII_Steps = 0;
+                            playerTurn = "RED";
+                        }
+                    }
+
+
+                }
+
+                
+            }
+        }
+    }
     //===== UI Button ===================
-    public void quit()
+
+    public bool quit()
     {
         SoundManagerScript.buttonAudioSource.Play();
         Application.Quit();
+        return true;
     }
     public void yesGameCompleted()
     {
@@ -106,6 +160,12 @@ public class GameScript : MonoBehaviour
     {
         SoundManagerScript.buttonAudioSource.Play();
         SceneManager.LoadScene(2);
+    }
+    public bool BonusExercise()
+    {
+        SoundManagerScript.buttonAudioSource.Play();
+        SceneManager.LoadScene(2);
+        return true;
     }
 
     public void noMethod()
@@ -129,7 +189,7 @@ public class GameScript : MonoBehaviour
     // =================== ROLL DICE RESULT ============================================================
 
     // DICE Initialization after players have finished their turn---------------
-    void InitializeDice()
+    void InitializeDice(MatchClass matchClass)
     {
         DiceRollButton.interactable = true;
 
@@ -216,8 +276,9 @@ public class GameScript : MonoBehaviour
                             SoundManagerScript.dismissalAudioSource.Play();
                             redPlayerI.transform.position = redPlayerI_Pos;
                             RedPlayerI_Script.redPlayerI_ColName = "none";
-                            redPlayerI_Steps = 0;
-                            playerTurn = "GREEN";
+                            redPlayerI_Steps = CurrentMatchClass.ComputerTokenPosition;
+                          
+                          playerTurn = "GREEN";
                         }
                         if (currentPlayer == RedPlayerII_Script.redPlayerII_ColName && (currentPlayer != "Star" && RedPlayerII_Script.redPlayerII_ColName != "Star"))
                         {
@@ -383,17 +444,7 @@ public class GameScript : MonoBehaviour
                     {
                         case 2:
                             playerTurn = "GREEN";
-                            InitializeDice();
-                            break;
-
-                        case 3:
-                            playerTurn = "BLUE";
-                            InitializeDice();
-                            break;
-
-                        case 4:
-                            playerTurn = "BLUE";
-                            InitializeDice();
+                            InitializeDice(CurrentMatchClass);
                             break;
                     }
                 }
@@ -465,7 +516,7 @@ public class GameScript : MonoBehaviour
                     {
                         case 2:
                             playerTurn = "RED";
-                            InitializeDice();
+                            InitializeDice(CurrentMatchClass);
                             break;
 
                         case 3:
@@ -473,8 +524,6 @@ public class GameScript : MonoBehaviour
                             break;
 
                         case 4:
-                            playerTurn = "YELLOW";
-                            InitializeDice();
                             break;
                     }
                 }
@@ -612,7 +661,8 @@ public class GameScript : MonoBehaviour
                             playerTurn = "BLUE";
                             break;
                     }
-                    InitializeDice();
+                    InitializeDice(CurrentMatchClass);
+                
                 }
             }
         }
@@ -743,7 +793,7 @@ public class GameScript : MonoBehaviour
                             playerTurn = "BLUE";
                             break;
                     }
-                    InitializeDice();
+                    InitializeDice(CurrentMatchClass);
                 }
             }
         }
@@ -874,7 +924,8 @@ public class GameScript : MonoBehaviour
                             playerTurn = "YELLOW";
                             break;
                     }
-                    InitializeDice();
+                    InitializeDice(CurrentMatchClass);
+                   
                 }
             }
         }
@@ -1001,7 +1052,8 @@ public class GameScript : MonoBehaviour
                             playerTurn = "YELLOW";
                             break;
                     }
-                    InitializeDice();
+                    InitializeDice(CurrentMatchClass);
+                 
                 }
             }
         }
@@ -1065,6 +1117,15 @@ public class GameScript : MonoBehaviour
 
           
         }
+       
+        Debug.Log(" AvailableReRolls :" + CurrentMatchClass.availableHints
+            +""+CurrentMatchClass.ComputerTokenPosition+":"+CurrentMatchClass.playerTokenPosition);
+
+     int Hints =CurrentMatchClass.availableHints;
+     int ComputerTokenPosition = CurrentMatchClass.ComputerTokenPosition;
+     int playerTokenPosition =  CurrentMatchClass.playerTokenPosition;
+     ShowMatchBoard(CurrentMatchClass);
+
     }
 
     // Update is called once per frame

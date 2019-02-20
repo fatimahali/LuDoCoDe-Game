@@ -270,9 +270,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 823798620}
-        m_MethodName: goToScene
-        m_Mode: 5
+      - m_Target: {fileID: 1859773702}
+        m_MethodName: AddPlayer
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1082,6 +1082,7 @@ MonoBehaviour:
   hints: []
   fullhint: {fileID: 0}
   emptyhint: {fileID: 0}
+  code: {fileID: 0}
 --- !u!114 &823798623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2649,6 +2650,7 @@ MonoBehaviour:
   hints: []
   fullhint: {fileID: 0}
   emptyhint: {fileID: 0}
+  code: {fileID: 707096355}
 --- !u!114 &1859773704
 MonoBehaviour:
   m_ObjectHideFlags: 0
