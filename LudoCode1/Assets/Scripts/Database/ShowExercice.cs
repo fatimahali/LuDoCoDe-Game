@@ -27,22 +27,20 @@ public class ShowExercice : MonoBehaviour
 
         if (Exer != null)
         {
-            Exercise.text = Exer.Question;
-            AddPlayer();
+            Exercise.text = Exer.Question; 
             Debug.Log(Exer.ExerciseId + " : " + Exer.Question);
         }
         else
             Debug.Log("Error");
     }
 
-    public void AddPlayer()
+    public void Compile()
     {
-        
+        Debug.Log("Compliing...");
         StartCoroutine(Database.Instance.Compile(code.text, isSuccessful =>
-    {
-         Debug.Log("aaa");
-        //ps = Database.players;
-    })); 
+        {
+             Debug.Log("Done compiling. Result: " + isSuccessful); 
+        })); 
      }
 
      void ShowAnsser()

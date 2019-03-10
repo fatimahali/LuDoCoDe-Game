@@ -87,7 +87,7 @@ public class GameScript : DisplayPlayer
 
     }
 
-  public void  ShowMatchBoard(MatchClass CurrentMatchClass)
+   /*void  ShowMatchBoard(MatchClass CurrentMatchClass)
     {
         float timer = 0.0f;
         while (!quit())
@@ -107,6 +107,7 @@ public class GameScript : DisplayPlayer
                     if (BonusExercise())
                     {
                         SceneManager.LoadScene("match1");
+
                     }else
                     {
                         if (currentPlayer == GreenPlayerI_Script.greenPlayerI_ColName && (currentPlayer != "Star" && GreenPlayerI_Script.greenPlayerI_ColName != "Star"))
@@ -135,7 +136,7 @@ public class GameScript : DisplayPlayer
                 
             }
         }
-    }
+    }*/
     //===== UI Button ===================
 
     public bool quit()
@@ -189,7 +190,7 @@ public class GameScript : DisplayPlayer
     // =================== ROLL DICE RESULT ============================================================
 
     // DICE Initialization after players have finished their turn---------------
-    void InitializeDice(MatchClass matchClass)
+    void InitializeDice()
     {
         DiceRollButton.interactable = true;
 
@@ -444,7 +445,7 @@ public class GameScript : DisplayPlayer
                     {
                         case 2:
                             playerTurn = "GREEN";
-                            InitializeDice(CurrentMatchClass);
+                            InitializeDice();
                             break;
                     }
                 }
@@ -516,7 +517,7 @@ public class GameScript : DisplayPlayer
                     {
                         case 2:
                             playerTurn = "RED";
-                            InitializeDice(CurrentMatchClass);
+                            InitializeDice();
                             break;
 
                         case 3:
@@ -661,7 +662,7 @@ public class GameScript : DisplayPlayer
                             playerTurn = "BLUE";
                             break;
                     }
-                    InitializeDice(CurrentMatchClass);
+                    InitializeDice();
                 
                 }
             }
@@ -793,7 +794,7 @@ public class GameScript : DisplayPlayer
                             playerTurn = "BLUE";
                             break;
                     }
-                    InitializeDice(CurrentMatchClass);
+                    InitializeDice();
                 }
             }
         }
@@ -924,7 +925,7 @@ public class GameScript : DisplayPlayer
                             playerTurn = "YELLOW";
                             break;
                     }
-                    InitializeDice(CurrentMatchClass);
+                    InitializeDice();
                    
                 }
             }
@@ -1052,7 +1053,7 @@ public class GameScript : DisplayPlayer
                             playerTurn = "YELLOW";
                             break;
                     }
-                    InitializeDice(CurrentMatchClass);
+                    InitializeDice();
                  
                 }
             }
@@ -1119,12 +1120,12 @@ public class GameScript : DisplayPlayer
         }
        
         Debug.Log(" AvailableReRolls :" + CurrentMatchClass.availableHints
-            +""+CurrentMatchClass.ComputerTokenPosition+":"+CurrentMatchClass.playerTokenPosition);
+            +""+CurrentMatchClass.ComputerTokenPosition+" : "+CurrentMatchClass.playerTokenPosition);
 
      int Hints =CurrentMatchClass.availableHints;
      int ComputerTokenPosition = CurrentMatchClass.ComputerTokenPosition;
      int playerTokenPosition =  CurrentMatchClass.playerTokenPosition;
-     ShowMatchBoard(CurrentMatchClass);
+    // ShowMatchBoard(CurrentMatchClass);
 
     }
 

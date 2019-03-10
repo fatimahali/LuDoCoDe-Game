@@ -18,7 +18,7 @@ public class DisplayPlayer : MonoBehaviour
     Text Score;
     Text Rerolls;
    
-    PlayerClass myPlayer = Database.players.GetPlayer(2);
+    PlayerClass myPlayer = Database.players.GetPlayer(1);
     PlayerClass UpdateRerolls;
    
     // player Profelle 

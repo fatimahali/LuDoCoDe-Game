@@ -5626,8 +5626,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Script: {fileID: 2052502820}
+  NextStage: {fileID: 0}
+  PlayerName: {fileID: 0}
+  PlayerScore: {fileID: 0}
+  PlayerRerolls: {fileID: 0}
+  PlayerProfille: {fileID: 0}
+  Options: {fileID: 0}
+  playerNum: {fileID: 0}
+  CurrentStage: {fileID: 0}
+  ExperiencePoints: {fileID: 0}
+  TotalWonMatch: {fileID: 0}
+  TotalPlayedMatch: {fileID: 0}
+  AvailableReRolls: {fileID: 0}
+  Script: {fileID: 2052502820}
   exercises:
     exercises: []
+  GameObject: {fileID: 0}
   frameRed: {fileID: 648717683}
   frameGreen: {fileID: 1423024559}
   redPlayerI_Border: {fileID: 104504520}
@@ -8435,8 +8449,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -306, y: 195}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: -346.1, y: 209.5}
+  m_SizeDelta: {x: 79.8, y: 0.99999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2102568171
 MonoBehaviour:
