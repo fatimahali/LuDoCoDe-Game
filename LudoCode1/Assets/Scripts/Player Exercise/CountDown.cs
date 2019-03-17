@@ -2,14 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using System;
 
 public class CountDown : MonoBehaviour
 {
    public Image fillImg;
-    private readonly int  timeAmt = 500;
-    int time;
-    public Text timeText;
-
+    private readonly float  timeAmt = 10;
+    float time;
+    // public Text timeText;
+    public GameObject TimeUP;
     // Use this for initialization
     void Start()
     {
@@ -25,10 +27,24 @@ public class CountDown : MonoBehaviour
         if (time > 0)
 
         {
-            time --;
+            time -= Time.deltaTime;
 
             fillImg.fillAmount = time / timeAmt;
-            timeText.text =  time.ToString();
+            Debug.Log(time);
         }
+        else
+        {
+            TimeUP.SetActive(true);
+            // Pause before next itteration
+          
+            MoveToMacth();
+           SceneManager.LoadScene(4);
+        }
+    }
+
+    private IEnumerator MoveToMacth()
+    {
+        yield return new WaitForSeconds(0.20f);
+        
     }
 }

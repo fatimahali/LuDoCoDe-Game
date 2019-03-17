@@ -154,13 +154,13 @@ public class GameScript : DisplayPlayer
     public void noGameCompleted()
     {
         SoundManagerScript.buttonAudioSource.Play();
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(3);
     }
 
     public void yesMethod()
     {
         SoundManagerScript.buttonAudioSource.Play();
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(3);
     }
     public bool BonusExercise()
     {
