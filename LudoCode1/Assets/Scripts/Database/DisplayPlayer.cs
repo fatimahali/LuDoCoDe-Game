@@ -112,6 +112,11 @@ public class DisplayPlayer : MonoBehaviour
         CurrentMatchClass.playerTokenPosition = 0;
         CurrentMatchClass.ComputerTokenPosition = 0;
 
+        PlayerPrefs.SetInt("playerToken1Position", 0);
+        PlayerPrefs.SetInt("playerToken2Position", 0);
+        PlayerPrefs.SetInt("ComputerToken1Position", 0);
+        PlayerPrefs.SetInt("ComputerToken2Position", 0);
+
         Debug.Log("Available Rerolls" + myPlayer.AvailableRerolls + ":" + CurrentMatchClass.availableHints);
       //  Script.matchClass = CurrentMatchClass;
         CurrentMatchClass = new MatchClass(selectedStage, availableHints, playerTokenPosition, ComputerTokenPosition);

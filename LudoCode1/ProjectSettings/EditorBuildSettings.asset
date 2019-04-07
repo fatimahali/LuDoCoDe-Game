@@ -24,6 +24,21 @@ EditorBuildSettings:
     path: Assets/Scenes/Player Exercise.unity
     guid: a7c11b3298b0c564fbc40da8eedb544f
   - enabled: 1
+    path: Assets/Scenes/Bounce1.unity
+    guid: 4ef60665e05892a44b74f81dd2a907e3
+  - enabled: 1
+    path: Assets/Scenes/Bounce2.unity
+    guid: d2335810ca423314babd3a462d339409
+  - enabled: 1
+    path: Assets/Scenes/Bounce3.unity
+    guid: 3902d79f05a5bca4b80c9ed2b29bd0fe
+  - enabled: 1
+    path: Assets/Scenes/Bounce4.unity
+    guid: 5304242fb650d0d469ac396daaa17ddf
+  - enabled: 1
+    path: Assets/Scenes/Bounce5.unity
+    guid: 743dab99dc7f34b469335a5fffee9456
+  - enabled: 0
     path: Assets/Scenes/match11.unity
     guid: 667eb9eee746a8d4fb25d7a5afce7cea
   - enabled: 0

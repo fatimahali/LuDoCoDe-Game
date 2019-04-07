@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = System.Random;
+using UnityEngine.SceneManagement;
 
 public class ShowExercice : MonoBehaviour
 {
@@ -11,14 +12,20 @@ public class ShowExercice : MonoBehaviour
     List<string> HintsExercice = Database.hints.GetHints(1);// currentExercise
     ExerciseClass Exer = Database.exercises.GetEexrcise(1);
     Random rnd = new Random();
-   public int hint;
+    public static int greenPlayerI_Step;
+    public static int greenPlayerII_Step;
+    public static int redPlayerI_Step;
+    public static int redPlayerII_Step;
+
+    public static bool test =false;
+  // public int hint;
     public int numofhints = 5;
     public Text Exercise;
-    public GameObject Displayhint;
+    //public GameObject Displayhint;
     Text cuhint;
-    public Button[] hints;
-    public Sprite fullhint;
-    public Sprite emptyhint;
+    //public Button[] hints;
+    //public Sprite fullhint;
+    //public Sprite emptyhint;
     
      public InputField code; // for the compiler 
    // public Text displayText; 
@@ -33,18 +40,37 @@ public class ShowExercice : MonoBehaviour
         else
             Debug.Log("Error");
     }
-
-    public void Compile()
+  public void Answer()
     {
-        Debug.Log("Compliing...");
-        StartCoroutine(Database.Instance.Compile(code.text, isSuccessful =>
+        if (code.text.ToString() == "1")
         {
-             Debug.Log("Done compiling. Result: " + isSuccessful); 
-        })); 
-     }
+            test = true;
+            CheckTheAnswers(test);
+        }else
+            CheckTheAnswers(test);
+    }
+   
 
-     void ShowAnsser()
+     void CheckTheAnswers(bool t)
     {
+        if (t == true)
+        {
+            greenPlayerI_Step = GameScript.greenPlayerI_Steps;
+            greenPlayerII_Step = GameScript.greenPlayerII_Steps;
+            redPlayerI_Step = GameScript.redPlayerI_Steps;
+            redPlayerII_Step = GameScript.redPlayerII_Steps;
+            Debug.Log("greenPlayerI_Steps :"+ greenPlayerI_Step +
+                      ": greenPlayerII_Step"+ greenPlayerII_Step +
+                      ": redPlayerI_Step" + redPlayerI_Step +
+                      ": redPlayerII_Step"+ redPlayerII_Step);
+
+            SceneManager.LoadScene("match1");
+        }
+        else if (t == false)
+        {
+            Debug.Log("greenPlayerI_Steps" + greenPlayerI_Step);
+            SceneManager.LoadScene("match1");
+        }
         
         
 //
@@ -103,7 +129,7 @@ public class ShowExercice : MonoBehaviour
                  }*/
 
 
-    void ShowPlayerExercise(PlayerClass currentPlayer, MatchClass currentMatch, ExerciseClass currentExercise)
+   /* void ShowPlayerExercise(PlayerClass currentPlayer, MatchClass currentMatch, ExerciseClass currentExercise)
     {
         string Answer = "";
         if (gameObject.name == "UseHint")  //If (player clicked on “Use Hint” button)
@@ -153,7 +179,7 @@ public class ShowExercice : MonoBehaviour
 
     }
 
-    private HintClass UseHints(MatchClass currentMatch, ExerciseClass currentExercise)
+    private HintClass UseHints( MatchClass currentMatch, ExerciseClass currentExercise)
     {
             if (currentMatch.availableHints <= 0)
             {
@@ -169,7 +195,7 @@ public class ShowExercice : MonoBehaviour
             }
         return null;
         
-    }
+    }*/
     
     
 

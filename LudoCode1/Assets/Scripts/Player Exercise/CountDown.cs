@@ -7,7 +7,7 @@ using System;
 
 public class CountDown : MonoBehaviour
 {
-   public Image fillImg;
+    public Image fillImg;
     private readonly float  timeAmt = 10;
     float time;
     // public Text timeText;
@@ -30,7 +30,7 @@ public class CountDown : MonoBehaviour
             time -= Time.deltaTime;
 
             fillImg.fillAmount = time / timeAmt;
-            Debug.Log(time);
+         
         }
         else
         {
@@ -44,7 +44,7 @@ public class CountDown : MonoBehaviour
 
     private IEnumerator MoveToMacth()
     {
-        yield return new WaitForSeconds(0.20f);
+        yield return new WaitForSeconds(0.56f);
         
     }
 }

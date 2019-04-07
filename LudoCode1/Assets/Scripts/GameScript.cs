@@ -4,11 +4,16 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class GameScript : DisplayPlayer
+public class GameScript : MonoBehaviour
 {
+   // public Image fillImg;
+    //private readonly float timeAmt = 10;
+    //float time;
+    // public Text timeText;
+   // public GameObject TimeUP;
     public PassNumSteps Script;
-    public Exercises exercises;
-    public GameObject GameObject;
+   // public Exercises exercises;
+  //  public GameObject GameObject;
 
     private int  totalRedInHouse, totalGreenInHouse;
 
@@ -20,6 +25,7 @@ public class GameScript : DisplayPlayer
     public Vector3 redPlayerI_Pos, redPlayerII_Pos;
     public Vector3 greenPlayerI_Pos, greenPlayerII_Pos;
   
+
 
     public Button RedPlayerI_Button, RedPlayerII_Button;
     public Button GreenPlayerI_Button, GreenPlayerII_Button;
@@ -38,13 +44,14 @@ public class GameScript : DisplayPlayer
 
     public GameObject redPlayerI, redPlayerII;
     public GameObject greenPlayerI, greenPlayerII;
-    
-
-    private int redPlayerI_Steps, redPlayerII_Steps;
-    private int greenPlayerI_Steps, greenPlayerII_Steps;
+    public GameObject BonusExer;
+    public static int reRolle=3;
+    public Text numberOfReroll;
+    public static int redPlayerI_Steps, redPlayerII_Steps;
+    public static int greenPlayerI_Steps, greenPlayerII_Steps;
    
     //selection of dice numbers animation...
-    private int selectDiceNumAnimation;
+    public  static int selectDiceNumAnimation;
 
     //--------------- Dice Animations------
     public GameObject dice1_Roll_Animation;
@@ -57,14 +64,14 @@ public class GameScript : DisplayPlayer
     // Players movement corenspoding to blocks...
     public List<GameObject> redMovementBlocks = new List<GameObject>();
     public List<GameObject> greenMovementBlocks = new List<GameObject>();
-   
-
+    int COUNT = 0;
+    int bounseExercise = 0;
     // Random generation of dice numbers...
     private System.Random randomNo;
     public GameObject confirmScreen;
     public GameObject gameCompletedScreen;
+    public GameObject BonusScreen;
 
-   
     //to lude the currentMatchClass
     private void Awake()
     {
@@ -162,6 +169,16 @@ public class GameScript : DisplayPlayer
         SoundManagerScript.buttonAudioSource.Play();
         SceneManager.LoadScene(3);
     }
+
+    public void yesGetBounceMethod()
+    {
+        SoundManagerScript.buttonAudioSource.Play();
+        numberOfReroll.text = reRolle.ToString();
+        bounseExercise = randomNo.Next(1, 5);
+        Debug.Log(""+ bounseExercise);
+        SceneManager.LoadScene("Bounce" + bounseExercise);
+
+    }
     public bool BonusExercise()
     {
         SoundManagerScript.buttonAudioSource.Play();
@@ -179,6 +196,17 @@ public class GameScript : DisplayPlayer
     {
         SoundManagerScript.buttonAudioSource.Play();
         confirmScreen.SetActive(true);
+    }
+    public void BonusMethod()
+    {
+        SoundManagerScript.buttonAudioSource.Play();
+        BonusScreen.SetActive(true);
+    }
+
+    public void ExitBonusMethod()
+    {
+        SoundManagerScript.buttonAudioSource.Play();
+        BonusScreen.SetActive(false);
     }
     // -============== GAME COMPLETED ROUTINE ==========================================================
     IEnumerator GameCompletedRoutine()
@@ -277,7 +305,7 @@ public class GameScript : DisplayPlayer
                             SoundManagerScript.dismissalAudioSource.Play();
                             redPlayerI.transform.position = redPlayerI_Pos;
                             RedPlayerI_Script.redPlayerI_ColName = "none";
-                            redPlayerI_Steps = CurrentMatchClass.ComputerTokenPosition;
+                          //  redPlayerI_Steps = CurrentMatchClass.ComputerTokenPosition;
                           
                           playerTurn = "GREEN";
                         }
@@ -399,12 +427,14 @@ public class GameScript : DisplayPlayer
                 {
                     redPlayerI_Border.SetActive(true);
                     RedPlayerI_Button.interactable = true;
+                    BonusExer.SetActive(true);
 
-                   // yield return new WaitForSeconds(1.5f);
-                    Debug.Log("redPlayerI_Steps " + selectDiceNumAnimation);
+
+                    Debug.Log("redPlayerI_Steps " + redPlayerI_Steps);
                 }
                 else
                 {
+                    BonusExer.SetActive(false);
                     redPlayerI_Border.SetActive(false);
                     RedPlayerI_Button.interactable = false;
                 }
@@ -413,10 +443,12 @@ public class GameScript : DisplayPlayer
                 {
                     redPlayerII_Border.SetActive(true);
                     RedPlayerII_Button.interactable = true;
-                    Debug.Log("redPlayerII_Steps" + selectDiceNumAnimation);
+                    BonusExer.SetActive(true);
+                    Debug.Log("redPlayerII_Steps" + redPlayerII_Steps);
                 }
                 else
                 {
+                    BonusExer.SetActive(false);
                     redPlayerII_Border.SetActive(false);
                     RedPlayerII_Button.interactable = false;
                 }
@@ -455,18 +487,24 @@ public class GameScript : DisplayPlayer
             case "GREEN":
                 
                 //==================== CONDITION FOR BORDER GLOW ========================
+
                 if ((greenMovementBlocks.Count - greenPlayerI_Steps) >= selectDiceNumAnimation && greenPlayerI_Steps > 0 && (greenMovementBlocks.Count > greenPlayerI_Steps))
                 {
                     greenPlayerI_Border.SetActive(true);
                     GreenPlayerI_Button.interactable = true;
-                    Script.move = selectDiceNumAnimation.ToString();
-                    StartCoroutine(Database.Instance.GetExercises(isSuccessful =>
-                    {
+                    
+                  //  StartCoroutine(Database.Instance.GetExercises(isSuccessful =>
+                  //  {
+
+
                         Debug.Log("Get Ewxerise");
                         SceneManager.LoadScene("Player Exercise");
-                    }));
-                   
-                    Debug.Log("greenPlayerI_Steps " + selectDiceNumAnimation);
+                   // }));
+                    if (ShowExercice.test == true)
+                    {  // greenPlayerI_Steps=
+                        Script.move = selectDiceNumAnimation.ToString();  // move
+                    }
+                    Debug.Log("greenPlayerI_Steps " + greenPlayerI_Steps);
                 }
                 else
                 {
@@ -485,14 +523,25 @@ public class GameScript : DisplayPlayer
                         SceneManager.LoadScene("Player Exercise");
                     }));
                     Debug.Log("greenPlayerI_Steps "+ greenPlayerI_Steps +":"+ selectDiceNumAnimation);
+                  
                 }
                 else
                 {
                     greenPlayerII_Border.SetActive(false);
                     GreenPlayerII_Button.interactable = false;
                 }
+                if (selectDiceNumAnimation != 4 && greenPlayerI_Steps == 0 && greenPlayerII_Steps == 0)
+                {
+                    COUNT++;
+                    Debug.Log("Count :"+ COUNT);
+                }
+                    if (COUNT==3) { 
+                    selectDiceNumAnimation = 4;
+                    dice4_Roll_Animation.SetActive(true);
+                    //  playerTurn = "GREEN";
 
-              
+                }
+
                 //=======================================================================================================
 
                 if (selectDiceNumAnimation == 4 && greenPlayerI_Steps == 0)
@@ -505,29 +554,31 @@ public class GameScript : DisplayPlayer
                     greenPlayerII_Border.SetActive(true);
                     GreenPlayerII_Button.interactable = true;
                 }
-              
+
                 //====================== PLAYERS DON'T HAVE ANY MOVES ,SWITCH TO NEXT TURN===============================
-                if (!greenPlayerI_Border.activeInHierarchy && !greenPlayerII_Border.activeInHierarchy )
-                {
-                    GreenPlayerI_Button.interactable = false;
-                    GreenPlayerII_Button.interactable = false;
-                   
-
-                    switch (MainMenuScript.howManyPlayers)
+             
+                    if (!greenPlayerI_Border.activeInHierarchy && !greenPlayerII_Border.activeInHierarchy)
                     {
-                        case 2:
-                            playerTurn = "RED";
-                            InitializeDice();
-                            break;
+                        GreenPlayerI_Button.interactable = false;
+                        GreenPlayerII_Button.interactable = false;
 
-                        case 3:
-                            //GREEN PLAYER IS NOT AVAILABLE
-                            break;
 
-                        case 4:
-                            break;
+                        switch (MainMenuScript.howManyPlayers)
+                        {
+                            case 2:
+                                playerTurn = "RED";
+                                InitializeDice();
+                                break;
+
+                            case 3:
+                                //GREEN PLAYER IS NOT AVAILABLE
+                                break;
+
+                            case 4:
+                                break;
+                        }
                     }
-                }
+                
                 break;
 
                 case "YELLOW":
@@ -560,7 +611,7 @@ public class GameScript : DisplayPlayer
                 }
 
                 redPlayerI_Steps += selectDiceNumAnimation;
-                Debug.Log(redPlayerI_Steps);
+                Debug.Log("redPlayerI_Steps" + redPlayerI_Steps);
 
                 if (selectDiceNumAnimation == 4)
                 {
@@ -590,6 +641,8 @@ public class GameScript : DisplayPlayer
                 //if(redPlayerI_Steps + selectDiceNumAnimation == redMovementBlocks.Count)
                 if (redPlayer_Path.Length > 1)
                 {
+                    //new add 
+                   
                     //redPlayerI.transform.DOPath (redPlayer_Path, 2.0f, PathType.Linear, PathMode.Full3D, 10, Color.red);
                     iTween.MoveTo(redPlayerI, iTween.Hash("path", redPlayer_Path, "speed", 125, "time", 2.0f, "easetype", "elastic", "looptype", "none", "oncomplete", "InitializeDice", "oncompletetarget", this.gameObject));
                 }
@@ -606,7 +659,7 @@ public class GameScript : DisplayPlayer
                     redPlayer_Path[0] = redMovementBlocks[redPlayerI_Steps].transform.position;
                     redPlayerI_Steps += 1;
                     playerTurn = "RED";
-                    //currentPlayer = RedPlayerI_Script.redPlayerI_ColName;
+                    currentPlayer = RedPlayerI_Script.redPlayerI_ColName;
                     currentPlayerName = "RED PLAYER I";
                     iTween.MoveTo(redPlayerI, iTween.Hash("position", redPlayer_Path[0], "speed", 125, "time", 2.0f, "easetype", "elastic", "looptype", "none", "oncomplete", "InitializeDice", "oncompletetarget", this.gameObject));
                 }
@@ -647,7 +700,7 @@ public class GameScript : DisplayPlayer
                 Debug.Log("You need " + (redMovementBlocks.Count - redPlayerI_Steps).ToString() + " to enter into the house.");
 
                 if (redPlayerII_Steps == 0 && selectDiceNumAnimation != 4)
-                {
+                {   
                     switch (MainMenuScript.howManyPlayers)
                     {
                         case 2:
@@ -693,7 +746,7 @@ public class GameScript : DisplayPlayer
                 redPlayerII_Steps += selectDiceNumAnimation;
 
 
-                Debug.Log(redPlayerII_Steps);
+                Debug.Log("redPlayerI_Steps" + redPlayerII_Steps);
                 if (selectDiceNumAnimation == 4)
                 {
                     playerTurn = "RED";
@@ -756,7 +809,7 @@ public class GameScript : DisplayPlayer
                 }
 
                 redPlayerII_Steps += selectDiceNumAnimation;
-
+                Debug.Log("redPlayerII_Steps" + redPlayerII_Steps);
                 playerTurn = "RED";
 
                 //redPlayerII_Steps = 0;
@@ -1066,8 +1119,12 @@ public class GameScript : DisplayPlayer
     void Start()
 
     {
+
+
         QualitySettings.vSyncCount = 1;
         Application.targetFrameRate = 30;
+
+       
 
         randomNo = new System.Random();
 
@@ -1075,20 +1132,27 @@ public class GameScript : DisplayPlayer
         dice2_Roll_Animation.SetActive(false);
         dice3_Roll_Animation.SetActive(false);
         dice4_Roll_Animation.SetActive(false);
-      //  dice5_Roll_Animation.SetActive(false);
-      //  dice4_Roll_Animation.SetActive(false);
 
         // Players initial positions.....
-        redPlayerI_Pos = redPlayerI.transform.position;
+
+        redPlayerI_Steps = PlayerPrefs.GetInt("playerToken1Position");
+        Debug.Log("redPlayerI_Steps"+ redPlayerI_Steps);
+        redPlayerII_Steps = PlayerPrefs.GetInt("playerToken2Position");
+        Debug.Log("redPlayerII_Steps" + redPlayerII_Steps);
+        greenPlayerI_Steps = PlayerPrefs.GetInt("ComputerToken1Position");
+        Debug.Log("greenPlayerI_Steps" + greenPlayerI_Steps);
+        greenPlayerII_Steps = PlayerPrefs.GetInt("ComputerToken2Position");
+        Debug.Log("greenPlayerII_Steps" + greenPlayerII_Steps);
+
+        /* redPlayerI_Pos = redPlayerI.transform.position;
         redPlayerII_Pos = redPlayerII.transform.position;
-       // redPlayerIII_Pos = redPlayerIII.transform.position;
-       // redPlayerIV_Pos = redPlayerIV.transform.position;
+
 
         greenPlayerI_Pos = greenPlayerI.transform.position;
         greenPlayerII_Pos = greenPlayerII.transform.position;
-      
+        */
 
-       
+
         redPlayerI_Border.SetActive(false);
         redPlayerII_Border.SetActive(false);
        
@@ -1108,30 +1172,235 @@ public class GameScript : DisplayPlayer
         {
             case 2:
                 playerTurn = "RED";
-
                 frameRed.SetActive(true);
                 frameGreen.SetActive(false);
-              
-                //diceRoll.position = redDiceRollPos.position;
-              
                 break;
 
           
         }
        
-        Debug.Log(" AvailableReRolls :" + CurrentMatchClass.availableHints
-            +""+CurrentMatchClass.ComputerTokenPosition+" : "+CurrentMatchClass.playerTokenPosition);
+     //   Debug.Log(" AvailableReRolls :" + CurrentMatchClass.availableHints
+       //     +""+CurrentMatchClass.ComputerTokenPosition+" : "+CurrentMatchClass.playerTokenPosition);
+        if (ShowExercice.test == true)
+        {
+          
 
-     int Hints =CurrentMatchClass.availableHints;
-     int ComputerTokenPosition = CurrentMatchClass.ComputerTokenPosition;
-     int playerTokenPosition =  CurrentMatchClass.playerTokenPosition;
-    // ShowMatchBoard(CurrentMatchClass);
+            greenPlayerII_Steps = ShowExercice.greenPlayerII_Step;
+            greenPlayerI_Steps = ShowExercice.greenPlayerI_Step;
+            redPlayerII_Steps = ShowExercice.redPlayerII_Step;
+            redPlayerI_Steps = ShowExercice.redPlayerI_Step;
+
+            
+
+            if (redPlayerI_Steps >= 1)
+            {
+
+                Vector3[] redPlayer_Path = new Vector3[redPlayerI_Steps+4];
+               
+                Debug.Log("redPlayer_Path.Length :" + redPlayer_Path.Length);
+
+                if (redPlayer_Path.Length > 1)
+                {
+                    iTween.MoveTo(redPlayerI, iTween.Hash("path", redPlayer_Path, "speed", 125, "time", 2.0f, "easetype", "elastic", "looptype", "none", "oncomplete", "InitializeDice", "oncompletetarget", this.gameObject));
+                }
+                else
+                {
+                    iTween.MoveTo(redPlayerI, iTween.Hash("position", redPlayer_Path[0], "speed", 125, "time", 2.0f, "easetype", "elastic", "looptype", "none", "oncomplete", "InitializeDice", "oncompletetarget", this.gameObject));
+                }
+
+            }
+
+            if (redPlayerII_Steps >= 1)
+            {
+
+                Vector3[] redPlayer_Path = new Vector3[redPlayerII_Steps];
+
+                Debug.Log("redPlayer_Path.Length :" + redPlayer_Path.Length);
+
+                if (redPlayer_Path.Length > 1)
+                {
+                    iTween.MoveTo(redPlayerII, iTween.Hash("path", redPlayer_Path, "speed", 125, "time", 2.0f, "easetype", "elastic", "looptype", "none", "oncomplete", "InitializeDice", "oncompletetarget", this.gameObject));
+                }
+                else
+                {
+                    iTween.MoveTo(redPlayerII, iTween.Hash("position", redPlayer_Path[0], "speed", 125, "time", 2.0f, "easetype", "elastic", "looptype", "none", "oncomplete", "InitializeDice", "oncompletetarget", this.gameObject));
+                }
+
+            }
+
+            if (greenPlayerI_Steps >= 1)
+            {
+                Vector3[] greenPlayer_Path = new Vector3[greenPlayerI_Steps];
+
+                greenPlayer_Path[0] = greenMovementBlocks[greenPlayerI_Steps].transform.position;
+               
+               Debug.Log("greenPlayer_Path.Length :" + greenPlayer_Path.Length);
+               if (greenPlayer_Path.Length > 1)
+               {
+                  iTween.MoveTo(greenPlayerI, iTween.Hash("path", greenPlayer_Path, "speed", 125, "time", 2.0f, "easetype", "elastic", "looptype", "none", "oncomplete", "InitializeDice", "oncompletetarget", this.gameObject));
+               }
+               else
+               {
+                   iTween.MoveTo(greenPlayerI, iTween.Hash("position", greenPlayer_Path[0], "speed", 125, "time", 2.0f, "easetype", "elastic", "looptype", "none", "oncomplete", "InitializeDice", "oncompletetarget", this.gameObject));
+               }
+            }
+            
+            if (greenPlayerII_Steps >= 1)
+            {
+                Vector3[] greenPlayer_Path = new Vector3[greenPlayerII_Steps];
+
+                greenPlayer_Path[0] = greenMovementBlocks[greenPlayerII_Steps].transform.position;
+
+                Debug.Log("greenPlayer_Path.Length :" + greenPlayer_Path.Length);
+                if (greenPlayer_Path.Length > 1)
+                {
+                    iTween.MoveTo(greenPlayerII, iTween.Hash("path", greenPlayer_Path, "speed", 125, "time", 2.0f, "easetype", "elastic", "looptype", "none", "oncomplete", "InitializeDice", "oncompletetarget", this.gameObject));
+                }
+                else
+                {
+                    iTween.MoveTo(greenPlayerII, iTween.Hash("position", greenPlayer_Path[0], "speed", 125, "time", 2.0f, "easetype", "elastic", "looptype", "none", "oncomplete", "InitializeDice", "oncompletetarget", this.gameObject));
+                }
+            }
+            // Vector3[] redPlayer_Path = new Vector3 [redPlayerII_Steps];
+            //  redPlayer_Path[0] = redMovementBlocks[redPlayerI_Steps].transform.position;
+
+
+            //  Vector3[] redPlayer_Path = new Vector3[0];
+            //redPlayer_Path[0] = redMovementBlocks[redPlayerI_Steps].transform.position;
+
+
+            //redPlayer_Path[0] = redMovementBlocks[redPlayerII_Steps].transform.position;
+            // redPlayerI_Steps = PlayerPrefs.GetInt("playerToken1Position");
+            Debug.Log("redPlayerI_Steps:" + redPlayerI_Steps);
+           // redPlayerII_Steps = PlayerPrefs.GetInt("playerToken2Position");
+            Debug.Log("redPlayerII_Steps" + redPlayerII_Steps);
+          //  greenPlayerI_Steps = PlayerPrefs.GetInt("ComputerToken1Position");
+            Debug.Log("greenPlayerI_Steps" + greenPlayerI_Steps);
+           // greenPlayerII_Steps = PlayerPrefs.GetInt("ComputerToken2Position");
+            Debug.Log("greenPlayerII_Steps" + greenPlayerII_Steps);
+
+        }
+        else
+        {
+            playerTurn = "RED";
+
+            frameRed.SetActive(true);
+            frameGreen.SetActive(false);
+            redPlayerI_Steps = 0;
+            redPlayerII_Steps = 0;
+            greenPlayerI_Steps = 0;
+            greenPlayerII_Steps =0;
+
+        }
+       
+         if(GameBounceControl.test == true)
+        {
+
+            greenPlayerII_Steps = GameBounceControl.greenPlayerII_Step;
+            greenPlayerI_Steps = GameBounceControl.greenPlayerI_Step;
+            redPlayerII_Steps = GameBounceControl.redPlayerII_Step;
+            redPlayerI_Steps = GameBounceControl.redPlayerI_Step;
+            reRolle = GameBounceControl.Reroll;
+
+
+            if (redPlayerI_Steps >= 1)
+            {
+
+                Vector3[] redPlayer_Path = new Vector3[redPlayerI_Steps + 4];
+
+                Debug.Log("redPlayer_Path.Length :" + redPlayer_Path.Length);
+
+                if (redPlayer_Path.Length > 1)
+                {
+                    iTween.MoveTo(redPlayerI, iTween.Hash("path", redPlayer_Path, "speed", 125, "time", 2.0f, "easetype", "elastic", "looptype", "none", "oncomplete", "InitializeDice", "oncompletetarget", this.gameObject));
+                }
+                else
+                {
+                    iTween.MoveTo(redPlayerI, iTween.Hash("position", redPlayer_Path[0], "speed", 125, "time", 2.0f, "easetype", "elastic", "looptype", "none", "oncomplete", "InitializeDice", "oncompletetarget", this.gameObject));
+                }
+
+            }
+
+            if (redPlayerII_Steps >= 1)
+            {
+
+                Vector3[] redPlayer_Path = new Vector3[redPlayerII_Steps];
+
+                Debug.Log("redPlayer_Path.Length :" + redPlayer_Path.Length);
+
+                if (redPlayer_Path.Length > 1)
+                {
+                    iTween.MoveTo(redPlayerII, iTween.Hash("path", redPlayer_Path, "speed", 125, "time", 2.0f, "easetype", "elastic", "looptype", "none", "oncomplete", "InitializeDice", "oncompletetarget", this.gameObject));
+                }
+                else
+                {
+                    iTween.MoveTo(redPlayerII, iTween.Hash("position", redPlayer_Path[0], "speed", 125, "time", 2.0f, "easetype", "elastic", "looptype", "none", "oncomplete", "InitializeDice", "oncompletetarget", this.gameObject));
+                }
+
+            }
+
+            if (greenPlayerI_Steps >= 1)
+            {
+                Vector3[] greenPlayer_Path = new Vector3[greenPlayerI_Steps];
+
+                greenPlayer_Path[0] = greenMovementBlocks[greenPlayerI_Steps].transform.position;
+
+                Debug.Log("greenPlayer_Path.Length :" + greenPlayer_Path.Length);
+                if (greenPlayer_Path.Length > 1)
+                {
+                    iTween.MoveTo(greenPlayerI, iTween.Hash("path", greenPlayer_Path, "speed", 125, "time", 2.0f, "easetype", "elastic", "looptype", "none", "oncomplete", "InitializeDice", "oncompletetarget", this.gameObject));
+                }
+                else
+                {
+                    iTween.MoveTo(greenPlayerI, iTween.Hash("position", greenPlayer_Path[0], "speed", 125, "time", 2.0f, "easetype", "elastic", "looptype", "none", "oncomplete", "InitializeDice", "oncompletetarget", this.gameObject));
+                }
+            }
+
+            if (greenPlayerII_Steps >= 1)
+            {
+                Vector3[] greenPlayer_Path = new Vector3[greenPlayerII_Steps];
+
+                greenPlayer_Path[0] = greenMovementBlocks[greenPlayerII_Steps].transform.position;
+
+                Debug.Log("greenPlayer_Path.Length :" + greenPlayer_Path.Length);
+                if (greenPlayer_Path.Length > 1)
+                {
+                    iTween.MoveTo(greenPlayerII, iTween.Hash("path", greenPlayer_Path, "speed", 125, "time", 2.0f, "easetype", "elastic", "looptype", "none", "oncomplete", "InitializeDice", "oncompletetarget", this.gameObject));
+                }
+                else
+                {
+                    iTween.MoveTo(greenPlayerII, iTween.Hash("position", greenPlayer_Path[0], "speed", 125, "time", 2.0f, "easetype", "elastic", "looptype", "none", "oncomplete", "InitializeDice", "oncompletetarget", this.gameObject));
+                }
+            }
+            // Vector3[] redPlayer_Path = new Vector3 [redPlayerII_Steps];
+            //  redPlayer_Path[0] = redMovementBlocks[redPlayerI_Steps].transform.position;
+
+
+            //  Vector3[] redPlayer_Path = new Vector3[0];
+            //redPlayer_Path[0] = redMovementBlocks[redPlayerI_Steps].transform.position;
+
+
+            //redPlayer_Path[0] = redMovementBlocks[redPlayerII_Steps].transform.position;
+            // redPlayerI_Steps = PlayerPrefs.GetInt("playerToken1Position");
+            Debug.Log("redPlayerI_Steps:" + redPlayerI_Steps);
+            // redPlayerII_Steps = PlayerPrefs.GetInt("playerToken2Position");
+            Debug.Log("redPlayerII_Steps" + redPlayerII_Steps);
+            //  greenPlayerI_Steps = PlayerPrefs.GetInt("ComputerToken1Position");
+            Debug.Log("greenPlayerI_Steps" + greenPlayerI_Steps);
+            // greenPlayerII_Steps = PlayerPrefs.GetInt("ComputerToken2Position");
+            Debug.Log("greenPlayerII_Steps" + greenPlayerII_Steps);
+
+        }
+        ////int Hints =CurrentMatchClass.availableHints;
+        //int ComputerTokenPosition = CurrentMatchClass.ComputerTokenPosition;
+        //int playerTokenPosition =  CurrentMatchClass.playerTokenPosition;
+        // ShowMatchBoard(CurrentMatchClass);
 
     }
 
     // Update is called once per frame
     void Update()
     {
-
+      
     }
 }

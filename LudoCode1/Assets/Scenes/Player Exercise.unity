@@ -524,7 +524,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1859773702}
-        m_MethodName: Compile
+        m_MethodName: Answer
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1002,7 +1002,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.021105265, y: 0.029000001}
   m_AnchorMax: {x: 0.98, y: 0.9684157}
-  m_AnchoredPosition: {x: 28.9, y: -1}
+  m_AnchoredPosition: {x: 28.900024, y: -1}
   m_SizeDelta: {x: -74.3, y: 20.49}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &234328097
@@ -2210,14 +2210,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3eb633020854554092a7fdce858953f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hint: 0
   numofhints: 5
-  Exercise: {fileID: 0}
-  Displayhint: {fileID: 0}
-  hints: []
-  fullhint: {fileID: 0}
-  emptyhint: {fileID: 0}
-  code: {fileID: 0}
+  Exercise: {fileID: 1857919080}
+  code: {fileID: 707096355}
 --- !u!114 &823798623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2225,7 +2220,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 823798619}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 825ea5a0f8f17ea499b0bf6df3c08b30, type: 3}
   m_Name: 
@@ -4644,13 +4639,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3eb633020854554092a7fdce858953f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hint: 0
   numofhints: 5
   Exercise: {fileID: 1857919080}
-  Displayhint: {fileID: 0}
-  hints: []
-  fullhint: {fileID: 0}
-  emptyhint: {fileID: 0}
   code: {fileID: 707096355}
 --- !u!114 &1859773704
 MonoBehaviour:
